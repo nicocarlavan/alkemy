@@ -4,7 +4,7 @@ const db = require('../database/models');
 const mainAPIController = {
 
 
-    all: (req, res) => {
+    list: (req, res) => {
         db.Record.findAll({
             include: ['type', 'category']
         })
