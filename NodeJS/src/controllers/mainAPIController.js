@@ -3,7 +3,6 @@ const db = require('../database/models');
 
 const mainAPIController = {
 
-
     list: (req, res) => {
         db.Record.findAll({
             include: ['type', 'category']
@@ -24,6 +23,38 @@ const mainAPIController = {
                 res.json(respuesta);
 
             })
+            .catch(error => (error))
+    },
+
+    detail: (req, res) => {
+        db.Record.findByPk(req.params.id, {
+            include: ['type', 'category']
+        })
+            .then(data => {
+                let respuesta;
+                if (data) {
+                    respuesta = {
+                        meta: {
+                            status: 200,
+                            count: data.length,
+                            url: 'http://localhost:3000/api/records/' + req.params.id
+                        },
+                        data: {
+                            records: data
+                        }
+                    }
+
+                    res.json(respuesta);
+
+                } else {
+
+                    return res.json('El registro con ID ' + req.params.id + ' no existe.')
+
+                }
+
+
+            })
+            .catch(error => (error))
     },
 
     create: (req, res) => {
@@ -33,7 +64,7 @@ const mainAPIController = {
                     meta: {
                         status: 200,
                         count: record.length,
-                        url: 'http://localhost:3000/api/records/'
+                        url: 'http://localhost:3000/api/records/' + record.id
                     },
                     data: {
                         record: record

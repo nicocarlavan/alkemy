@@ -5,6 +5,7 @@ const mainAPIController = require('../controllers/mainAPIController')
 
 
 router.get('/', mainAPIController.list);
+router.get('/:id', mainAPIController.detail);
 router.post('/create', bodyParser, mainAPIController.create);
 router.post('/delete/:id', mainAPIController.destroy);
 router.put('/edit/:id', bodyParser, mainAPIController.update);
