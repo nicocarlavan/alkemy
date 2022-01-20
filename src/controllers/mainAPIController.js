@@ -3,6 +3,7 @@ const db = require('../database/models');
 
 const mainAPIController = {
 
+
     all: (req, res) => {
         db.Record.findAll({
             include: ['type', 'category']
