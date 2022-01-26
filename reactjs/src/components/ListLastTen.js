@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ListRow from "./ListRow";
-import TopBar from "./TopBar";
 import Footer from "./Footer";
 
 class ListOut extends Component {
