@@ -1,3 +1,4 @@
+import React from "react";
 import ContentRowTop from "./ContentRowTop";
 import ContentRowMiddle from "./ContentRowMiddle";
 import TopBar from "./TopBar";

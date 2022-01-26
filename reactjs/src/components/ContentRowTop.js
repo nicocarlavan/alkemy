@@ -1,3 +1,4 @@
+import React from "react";
 import ContentRowTotals from "./ContentRowTotals";
 import ContentRowTitle from "./ContentRowTitle";
 

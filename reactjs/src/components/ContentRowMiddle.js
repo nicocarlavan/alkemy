@@ -1,5 +1,6 @@
+import React from "react";
 import Categories from "./Categories"
-import List from "./List";
+import ListLastTen from "./ListLastTen";
 
 function ContentRowMiddle() {
     return (
@@ -8,15 +9,8 @@ function ContentRowMiddle() {
                 {/* Categories */}
                 <Categories />
             </div>
-            <div className="card shadow mb-4 table-responsive">
-                <div className="card-header py-3 ">
-                    <h5 className="m-0 font-weight-bold text-gray-800">Ultimos Registros</h5>
-
-                    <List />
-
-
-                </div>
-            </div>
+            {/* Last 10 Records */}
+            <ListLastTen />
         </div >
     )
 }

@@ -59,6 +59,7 @@ class ContentRowTotals extends Component {
     }
 
 
+
     render() {
         totalsAux = Object.values(this.state)
         return (
