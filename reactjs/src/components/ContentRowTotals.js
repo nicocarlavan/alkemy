@@ -1,41 +1,78 @@
+import React, { Component } from "react";
 import SmallCard from "./SmallCard";
 
 
 let balance = {
     title: "Balance",
     color: "primary",
-    total: 17,
     icon: "fa-chart-bar"
 };
 
-let totalIngresos = {
+let ingresos = {
     title: "Total Ingresos",
     color: "success",
-    total: 49,
     icon: "fa-tasks"
 };
 
-let totalEgresos = {
+let egresos = {
     title: "Total Egresos",
     color: "danger",
-    total: 32,
     icon: "fa-external-link-alt"
 };
 
-let cardProps = [balance, totalIngresos, totalEgresos];
+let cardProps = [balance, ingresos, egresos];
+let totalsAux;
 
 
+class ContentRowTotals extends Component {
 
-function ContentRowTotals() {
-    return (
+    constructor() {
+        super()
+        this.state = {
+            totalBalance: 0,
+            totalIngresos: 0,
+            totalEgresos: 0,
+        }
 
-        <div className="row">
-            {cardProps.map((info, idx) => {
-                return <SmallCard cardInfo={info} key={idx} />
-            })}
-        </div>
+    }
 
-    )
+
+    componentDidMount() {
+        fetch('/api/records/')
+            .then(response => {
+                return response.json()
+            })
+            .then(totals => {
+                this.setState({
+                    totalBalance: totals.data.totalBalance,
+                    totalIngresos: totals.data.totalIngresos,
+                    totalEgresos: totals.data.totalEgresos
+                })
+
+
+            })
+            .catch(error => {
+                console.log('Se encontró un error: ' + error)
+            })
+
+
+    }
+
+
+    render() {
+        totalsAux = Object.values(this.state)
+        return (
+            <React.Fragment>
+                <div className="row" >
+                    {
+                        cardProps.map((card, idx) => {
+                            return <SmallCard {...card} total={totalsAux[idx]} key={idx} />
+                        })
+                    }
+                </div>
+            </React.Fragment>
+        )
+    }
 }
 
 
