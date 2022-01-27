@@ -9,6 +9,20 @@ const mainAPIController = {
         })
             .then(data => {
 
+                let totalIngresos = 0;
+                let totalEgresos = 0;
+                let balance = 0;
+
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].type_id === 1) {
+                        totalIngresos += data[i].amount
+                    } else {
+                        totalEgresos += data[i].amount
+                    }
+                }
+                balance = totalIngresos - totalEgresos;
+
+
                 let respuesta = {
                     meta: {
                         status: 200,
@@ -16,7 +30,10 @@ const mainAPIController = {
                         url: 'http://localhost:3000/api/records/'
                     },
                     data: {
-                        records: data
+                        totalBalance: balance,
+                        totalIngresos: totalIngresos,
+                        totalEgresos: totalEgresos,
+                        records: data,
                     }
                 }
 
@@ -113,7 +130,6 @@ const mainAPIController = {
             }
         })
             .then(response => {
-                console.log(response)
                 if (response == 1) {
                     return res.status(200).json({
                         meta: {
@@ -128,8 +144,105 @@ const mainAPIController = {
             })
             .catch(error => (error))
 
-    }
+    },
+    listCategories: (req, res) => {
+        db.Category.findAll()
+            .then(data => {
 
+                let respuesta = {
+                    meta: {
+                        status: 200,
+                        count: data.length,
+                        url: 'http://localhost:3000/api/categories/'
+                    },
+                    data: {
+                        records: data
+                    }
+                }
+
+                res.json(respuesta);
+
+            })
+            .catch(error => (error))
+    },
+    listIn: (req, res) => {
+        db.Record.findAll({
+            include: ['type', 'category'],
+            where: {
+                type_id: 1
+            }
+        })
+            .then(data => {
+
+
+                let respuesta = {
+                    meta: {
+                        status: 200,
+                        count: data.length,
+                        url: 'http://localhost:3000/api/records/listin'
+                    },
+                    data: {
+                        recordsIn: data,
+                    }
+                }
+
+                res.json(respuesta);
+
+            })
+            .catch(error => (error))
+    },
+    listOut: (req, res) => {
+        db.Record.findAll({
+            include: ['type', 'category'],
+            where: {
+                type_id: 2
+            }
+        })
+            .then(data => {
+
+
+                let respuesta = {
+                    meta: {
+                        status: 200,
+                        count: data.length,
+                        url: 'http://localhost:3000/api/records/listout'
+                    },
+                    data: {
+                        recordsOut: data,
+                    }
+                }
+
+                res.json(respuesta);
+
+            })
+            .catch(error => (error))
+    },
+    listByCategory: (req, res) => {
+        db.Record.findAll({
+            include: ['type', 'category'],
+            where: {
+                category_id: req.params.id
+            }
+        })
+            .then(data => {
+
+
+                let respuesta = {
+                    meta: {
+                        status: 200,
+                        count: data.length,
+                        url: 'http://localhost:3000/api/records/listByCategory/' + req.params.id
+                    },
+                    data: {
+                        records: data,
+                    }
+                }
+
+                res.json(respuesta);
+
+            })
+            .catch(error => (error))
+    }
 }
 
 module.exports = mainAPIController;
