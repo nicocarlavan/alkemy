@@ -5,6 +5,7 @@ import ContentWrapper from "./ContentWrapper";
 import ListIn from './ListIn';
 import ListOut from './ListOut';
 import ListTotal from './ListTotal';
+import EditRecordForm from "./EditRecordForm";
 
 function Sidebar() {
     return (
@@ -14,7 +15,7 @@ function Sidebar() {
                 {/* Sidebar - Brand */}
                 < Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/" >
                     <div className="sidebar-brand-icon">
-                        <img className="w-50" src="assets/images/dashboard.png" alt="Dashboard" />
+                        <img className="w-50" src="/assets/images/dashboard.png" alt="Dashboard" />
                     </div>
                 </Link >
 
@@ -76,6 +77,7 @@ function Sidebar() {
                 <Route path='/ListTotal' element={<ListTotal />} />
                 <Route path='/ListIn' element={<ListIn />} />
                 <Route path='/ListOut' element={<ListOut />} />
+                <Route path='/EditRecordForm/:id' element={<EditRecordForm />} />
             </Routes>
 
         </React.Fragment>

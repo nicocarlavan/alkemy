@@ -11,7 +11,6 @@ import TopBar from './TopBar';
 class NewRecordForm extends Component {
 
 
-
     constructor(props) {
         super(props)
         this.state = {
@@ -19,9 +18,11 @@ class NewRecordForm extends Component {
             category_id: 0,
             concept: "",
             amount: 0,
-            record_date: new Date()
+            record_date: ""
         }
     }
+
+
 
     handleChange = (e) => {
         const { name, value } = e.target
@@ -44,47 +45,69 @@ class NewRecordForm extends Component {
             .then(response => response.json())
             .then(data => {
                 if (data.meta.status === 200) {
-                    alert('El registro se ha creado con éxito')
-                    window.location = '/';
+                    alert('El registro se ha editado con éxito')
+                    window.location = '/ListTotal';
                 } else {
-                    alert('Ocurrió un error al intentar crear el registro')
+                    alert('Ocurrió un error al intentar editar el registro')
                 }
 
 
             })
 
+
+
     }
 
+    componentDidMount() {
+        let index = window.location.pathname.lastIndexOf('/')
+        let paramId = window.location.pathname.slice(index + 1)
+
+        fetch('/api/records/' + paramId)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    type_id: data.data.records.type_id,
+                    category_id: data.data.records.category_id,
+                    concept: data.data.records.concept,
+                    amount: data.data.records.amount,
+                    record_date: data.data.records.record_date
+                })
+
+            })
+
+
+    }
 
     render() {
+        const { type_id, category_id, concept, amount, record_date } = this.state
 
-        const { concept, amount, record_date } = this.state
         return (
 
             <React.Fragment>
-
                 <div id="content-wrapper" className="d-flex flex-column">
                     <div id="content">
                         <TopBar />
                         <div className="card shadow mb-4 table-responsive">
-                            <div className="card-header py-3 ">
-                                <h5 className="m-0 font-weight-bold text-gray-800">Nuevo Registro</h5>
+                            <div className="card-header py-3 " >
+                                <h5 className="m-0 font-weight-bold text-gray-800">Editar Registro</h5>
                                 <br></br>
                                 <Card className="mx-auto">
-                                    <Card.Body>
+                                    <Card.Body >
                                         <Form onSubmit={this.handleSubmit}>
                                             <InputGroup className="mb-3">
                                                 <InputGroup.Text className="mr-3">Tipo</InputGroup.Text>
                                                 <div className="mt-1" onChange={this.handleChange}>
-                                                    <Form.Check inline type="radio" name="type_id" value="1" label="Ingreso" />
-                                                    <Form.Check inline type="radio" name="type_id" value="2" label="Egreso" />
+                                                    <Form.Check inline disabled={true} type="radio" name="type_id" value="1" label="Ingreso"
+                                                        checked={type_id === 1 ? true : false} />
+                                                    <Form.Check inline disabled={true} type="radio" name="type_id" value="2" label="Egreso"
+                                                        checked={type_id === 2 ? true : false} />
                                                 </div>
                                             </InputGroup>
                                             <InputGroup className="mb-3">
                                                 <InputGroup.Text className="mr-3">Categoria</InputGroup.Text>
                                                 <div className="mt-1">
-                                                    <Form.Select aria-label="category_id" name="category_id" onChange={this.handleChange}>
-                                                        <option>Elija una categoría</option>
+                                                    <Form.Select value={category_id} name="category_id" onChange={this.handleChange}>
+                                                        <option >Elija una categoría</option>
                                                         <option value="1">Comida</option>
                                                         <option value="2">Salidas</option>
                                                         <option value="3">Sueldo</option>
@@ -115,7 +138,7 @@ class NewRecordForm extends Component {
                                             <br></br>
                                             <div className="text-center">
                                                 <Button variant="outline-secondary" type="submit">
-                                                    Crear
+                                                    Editar
                                                 </Button>
                                             </div>
 

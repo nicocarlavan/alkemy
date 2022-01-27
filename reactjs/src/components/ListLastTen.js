@@ -53,6 +53,8 @@ class ListOut extends Component {
                                             <th scope="col">Fecha del Registro</th>
                                             <th scope="col">Fecha de Creación</th>
                                             <th scope="col">Fecha de Actualización</th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -65,6 +67,8 @@ class ListOut extends Component {
                                             <th scope="col">Fecha del Registro</th>
                                             <th scope="col">Fecha de Creación</th>
                                             <th scope="col">Fecha de Actualización</th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
