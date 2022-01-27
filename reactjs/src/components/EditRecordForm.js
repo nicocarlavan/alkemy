@@ -5,7 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Card from 'react-bootstrap/Card';
 import TopBar from './TopBar';
-
+import Footer from './Footer';
 
 
 class NewRecordForm extends Component {
@@ -14,6 +14,7 @@ class NewRecordForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            id: 0,
             type_id: 0,
             category_id: 0,
             concept: "",
@@ -31,11 +32,10 @@ class NewRecordForm extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        fetch('/api/records/create', {
-            method: 'post',
+        fetch('/api/records/edit/' + this.state.id, {
+            method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                type_id: this.state.type_id,
                 category_id: this.state.category_id,
                 concept: this.state.concept,
                 amount: this.state.amount,
@@ -50,11 +50,7 @@ class NewRecordForm extends Component {
                 } else {
                     alert('Ocurrió un error al intentar editar el registro')
                 }
-
-
             })
-
-
 
     }
 
@@ -66,6 +62,7 @@ class NewRecordForm extends Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({
+                    id: paramId,
                     type_id: data.data.records.type_id,
                     category_id: data.data.records.category_id,
                     concept: data.data.records.concept,
@@ -148,6 +145,7 @@ class NewRecordForm extends Component {
                             </div>
                         </div>
                     </div>
+                    <Footer />
                 </div>
 
             </React.Fragment >

@@ -2,7 +2,6 @@ import React from "react";
 import ContentRowTop from "./ContentRowTop";
 import ContentRowMiddle from "./ContentRowMiddle";
 import TopBar from "./TopBar";
-import Footer from "./Footer";
 
 function ContentWrapper() {
     return (
@@ -12,7 +11,6 @@ function ContentWrapper() {
                 <ContentRowTop />
                 <ContentRowMiddle />
             </div>
-            <Footer />
         </div>
     )
 }

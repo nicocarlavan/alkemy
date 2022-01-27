@@ -48,7 +48,7 @@ class ListOut extends Component {
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Tipo</th>
-                                            <th scope="col">Categoria</th>
+                                            <th scope="col">Categoría</th>
                                             <th scope="col">Concepto</th>
                                             <th scope="col">Importe</th>
                                             <th scope="col">Fecha del Registro</th>
@@ -62,7 +62,7 @@ class ListOut extends Component {
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Tipo</th>
-                                            <th scope="col">Categoria</th>
+                                            <th scope="col">Categoría</th>
                                             <th scope="col">Concepto</th>
                                             <th scope="col">Importe</th>
                                             <th scope="col">Fecha del Registro</th>
