@@ -5,4 +5,4 @@
 ###### Una vez instaladas las dependencias, correr el comando npm start. Esto levantará el servidor y abrirá una ventana del navegador donde se podrá visualizar el Dashboard.
 
 
-###### Debes asegurarte que previamente esten funcionando los servicios de la base de datos, y del backend.
+###### Debes asegurarte que previamente esten activos los servicios de la base de datos, y del backend.
